@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Header from './common/Header';
+import Footer from './common/Footer';
 import { connect } from 'react-redux';
 
 class App extends React.Component {
@@ -10,6 +11,7 @@ class App extends React.Component {
           loading={this.props.loading}
         />
         {this.props.children}
+        <Footer />
       </div>
     );
   }
