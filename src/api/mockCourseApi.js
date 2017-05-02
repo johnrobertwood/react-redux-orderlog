@@ -1,4 +1,6 @@
 import delay from './delay';
+import firebase from 'firebase';
+import database from '../database';
 
 // This file mocks a web API by working with the hard-coded data below.
 // It uses setTimeout to simulate the delay of an AJAX call.
@@ -63,13 +65,19 @@ const generateId = (course) => {
 class CourseApi {
   static getAllCourses() {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(Object.assign([], courses));
-      }, delay);
+      // var userId = firebase.auth().currentUser.uid;
+      let courses = firebase.database().ref('/courses').once('value').then(function(snapshot) {
+        // var username = snapshot.val().username;
+        courses = Object.keys(snapshot.val()).map(function(key) {
+          return snapshot.val()[key]
+        });
+        resolve(Object.assign([], courses))
+      });
     });
   }
 
   static saveCourse(course) {
+
     course = Object.assign({}, course); // to avoid manipulating object passed in.
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -82,13 +90,21 @@ class CourseApi {
         if (course.id) {
           const existingCourseIndex = courses.findIndex(a => a.id == course.id);
           courses.splice(existingCourseIndex, 1, course);
+          firebase.database().ref('courses/' + course.id).set(
+            course
+          );
         } else {
           //Just simulating creation here.
           //The server would generate ids and watchHref's for new courses in a real app.
           //Cloning so copy returned is passed by value rather than by reference.
-          course.id = generateId(course);
+          // course.id = generateId(course);
+          course.id = Date.now();
+          // course.complete = false;
           course.watchHref = `http://www.pluralsight.com/courses/${course.id}`;
           courses.push(course);
+          firebase.database().ref('courses/' + course.id).set(
+            course
+          );
         }
 
         resolve(course);

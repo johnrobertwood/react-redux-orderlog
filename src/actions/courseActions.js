@@ -1,6 +1,9 @@
 import * as types from './actionTypes';
 import courseApi from '../api/mockCourseApi';
 import { beginAjaxCall, ajaxCallError } from './ajaxStatusActions';
+import { pathToJS } from 'react-redux-firebase';
+import database from '../database';
+import firebase from 'firebase';
 
 export function loadCoursesSuccess(courses) {
   return {type: types.LOAD_COURSES_SUCCESS, courses};
@@ -35,9 +38,30 @@ export function loadCourses() {
   };
 }
 
-export function saveCourse(course) {
+export function courseComplete(course) {
   return function(dispatch, getState) {
+    dispatch(toggleCourse(course.id));
+    course.complete = !course.complete;
+
+    return courseApi.saveCourse(course).then(savedCourse => {
+      dispatch(updateCourseSuccess(savedCourse))
+
+      // course.id ? dispatch(updateCourseSuccess(savedCourse)) :
+        // dispatch(createCourseSuccess(savedCourse));
+    }).catch(error => {
+      dispatch(ajaxCallError());
+      throw(error);
+    });
+  };
+}
+
+export function saveCourse(course) {
+  console.log(course);
+  return function(dispatch, getState) {
+    // const auth = pathToJS(getState.firebase, 'auth');
+    // course.owner = auth.uid;
     dispatch(beginAjaxCall());
+
     return courseApi.saveCourse(course).then(savedCourse => {
       course.id ? dispatch(updateCourseSuccess(savedCourse)) :
         dispatch(createCourseSuccess(savedCourse));

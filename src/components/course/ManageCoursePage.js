@@ -5,6 +5,7 @@ import * as courseActions from '../../actions/courseActions';
 import CourseForm from './CourseForm';
 import { browserHistory } from 'react-router';
 import toastr from 'toastr';
+import { pathToJS } from 'react-redux-firebase';
 
 class ManageCoursePage extends React.Component {
   constructor(props, context) {
@@ -37,12 +38,13 @@ class ManageCoursePage extends React.Component {
   saveCourse(e) {
     e.preventDefault();
     this.setState({saving: true});
-    this.props.actions.saveCourse(this.state.course)
-    .then(() => this.redirect())
-    .catch(error => {
-      toastr.error(error);
-      this.setState({saving: false});
-    }); 
+    let course = this.state.course;
+    this.props.actions.saveCourse(course)
+      .then(() => this.redirect())
+      .catch(error => {
+        toastr.error(error);
+        this.setState({saving: false});
+      }); 
   }
 
   redirect() {
@@ -80,11 +82,12 @@ function getCourseById(courses, id) {
 function mapStateToProps(state, ownProps) {
   const courseId = ownProps.params.id; // from the path `/course/:id`
 
-  let course = {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''};
+  let course = {id: '', title: '', authorId: '', length: '', category: '', complete: false};
   
   if (courseId && state.courses.length > 0) {
     course = getCourseById(state.courses, courseId);
   }
+
   const authorsFormattedForDropdown = state.authors.map(author => {
     return {
       value: author.id,
