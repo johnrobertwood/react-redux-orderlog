@@ -25,10 +25,10 @@ class CoursesPage extends React.Component {
     
     return (
       <div>
-        <h1>Courses</h1>
+        <h1>Orders</h1>
         <input 
           type="submit"
-          value="Add Course"
+          value="Add Order"
           className="btn btn-primary"
           onClick={this.redirectToAddCoursePage} />
         <CourseList courses={courses} />

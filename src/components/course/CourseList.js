@@ -10,10 +10,10 @@ const CourseList = ({courses, onChange}) => {
      <thead>
        <tr>
          <th>&nbsp;</th>
-         <th>Title</th>
-         <th>Author</th>
-         <th>Category</th>
-         <th>Length</th>
+         <th>WO</th>
+         <th>Inspector</th>
+         <th>Part Number</th>
+         <th>Part Name</th>
          <th>Complete</th>
        </tr>
      </thead>

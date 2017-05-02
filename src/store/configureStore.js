@@ -4,7 +4,6 @@ import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
-// import { firebase as fbConfig, reduxFirebase as reduxConfig } from '../config';
 
 const fbConfig = {
   apiKey: "AIzaSyDKhrWw8CNnSqdswnVpwCU55AiWFWrm5NE",
