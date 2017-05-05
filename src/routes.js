@@ -1,17 +1,17 @@
 import React from 'react';
-import { Route, IndexRoute, DefaultRoute } from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 import App from './components/App';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
-import CoursesPage from './components/course/CoursesPage';
-import ManageCoursePage from './components/course/ManageCoursePage';
+import OrdersPage from './components/order/OrdersPage';
+import ManageOrderPage from './components/order/ManageOrderPage';
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={CoursesPage} />
-    <Route path="courses" component={CoursesPage} />
-    <Route path="course" component={ManageCoursePage} />
-    <Route path="course/:id" component={ManageCoursePage} />
+    <IndexRoute component={OrdersPage} />
+    <Route path="orders" component={OrdersPage} />
+    <Route path="order" component={ManageOrderPage} />
+    <Route path="order/:id" component={ManageOrderPage} />
     <Route path="about" component={AboutPage} />
   </Route>
 );

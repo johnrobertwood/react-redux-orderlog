@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setVisibilityFilter } from '../../actions/courseActions';
+import { setVisibilityFilter } from '../../actions/orderActions';
 import FilterLink from '../../containers/FilterLink';
 
 const Footer = () => (

@@ -18,7 +18,7 @@ const config = {
   enableLogging: false, // enable/disable Firebase Database Logging
   updateProfileOnLogin: false // enable/disable updating of profile on login
   // profileDecorator: (userData) => ({ email: userData.email }) // customize format of user profile
-}
+};
 
 export default function configureStore(initialState) {
   return createStore(

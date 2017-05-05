@@ -5,11 +5,11 @@ import database from '../database';
 // This file mocks a web API by working with the hard-coded data below.
 // It uses setTimeout to simulate the delay of an AJAX call.
 // All calls return promises.
-const courses = [
+const orders = [
   {
     id: "react-flux-building-applications",
     title: "Building Applications in React and Flux",
-    watchHref: "http://www.pluralsight.com/courses/react-flux-building-applications",
+    watchHref: "http://www.pluralsight.com/orders/react-flux-building-applications",
     authorId: "cory-house",
     length: "5:08",
     category: "JavaScript",
@@ -18,7 +18,7 @@ const courses = [
   {
     id: "clean-code",
     title: "Clean Code: Writing Code for Humans",
-    watchHref: "http://www.pluralsight.com/courses/writing-clean-code-humans",
+    watchHref: "http://www.pluralsight.com/orders/writing-clean-code-humans",
     authorId: "cory-house",
     length: "3:10",
     category: "Software Practices",
@@ -27,7 +27,7 @@ const courses = [
   {
     id: "architecture",
     title: "Architecting Applications for the Real World",
-    watchHref: "http://www.pluralsight.com/courses/architecting-applications-dotnet",
+    watchHref: "http://www.pluralsight.com/orders/architecting-applications-dotnet",
     authorId: "cory-house",
     length: "2:52",
     category: "Software Architecture",
@@ -36,7 +36,7 @@ const courses = [
   {
     id: "career-reboot-for-developer-mind",
     title: "Becoming an Outlier: Reprogramming the Developer Mind",
-    watchHref: "http://www.pluralsight.com/courses/career-reboot-for-developer-mind",
+    watchHref: "http://www.pluralsight.com/orders/career-reboot-for-developer-mind",
     authorId: "cory-house",
     length: "2:30",
     category: "Career",
@@ -45,7 +45,7 @@ const courses = [
   {
     id: "web-components-shadow-dom",
     title: "Web Component Fundamentals",
-    watchHref: "http://www.pluralsight.com/courses/web-components-shadow-dom",
+    watchHref: "http://www.pluralsight.com/orders/web-components-shadow-dom",
     authorId: "cory-house",
     length: "5:10",
     category: "HTML5",
@@ -58,71 +58,71 @@ function replaceAll(str, find, replace) {
 }
 
 //This would be performed on the server in a real app. Just stubbing in.
-const generateId = (course) => {
-  return replaceAll(course.title, ' ', '-');
+const generateId = (Order) => {
+  return replaceAll(Order.title, ' ', '-');
 };
 
-class CourseApi {
-  static getAllCourses() {
+class OrderApi {
+  static getAllOrders() {
     return new Promise((resolve, reject) => {
       // var userId = firebase.auth().currentUser.uid;
-      let courses = firebase.database().ref('/courses').once('value').then(function(snapshot) {
+      let orders = firebase.database().ref('/orders').once('value').then(function(snapshot) {
         // var username = snapshot.val().username;
-        courses = Object.keys(snapshot.val()).map(function(key) {
+        orders = Object.keys(snapshot.val()).map(function(key) {
           return snapshot.val()[key];
         });
-        resolve(Object.assign([], courses));
+        resolve(Object.assign([], orders));
       });
     });
   }
 
-  static saveCourse(course) {
+  static saveOrder(order) {
 
-    course = Object.assign({}, course); // to avoid manipulating object passed in.
+    order = Object.assign({}, order); // to avoid manipulating object passed in.
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simulate server-side validation
-        const minCourseTitleLength = 1;
-        if (course.title.length < minCourseTitleLength) {
-          reject(`Title must be at least ${minCourseTitleLength} characters.`);
+        const minOrderTitleLength = 1;
+        if (order.title.length < minOrderTitleLength) {
+          reject(`Title must be at least ${minOrderTitleLength} characters.`);
         }
 
-        if (course.id) {
-          const existingCourseIndex = courses.findIndex(a => a.id == course.id);
-          courses.splice(existingCourseIndex, 1, course);
-          firebase.database().ref('courses/' + course.id).set(
-            course
+        if (order.id) {
+          const existingOrderIndex = orders.findIndex(a => a.id == order.id);
+          orders.splice(existingOrderIndex, 1, order);
+          firebase.database().ref('orders/' + order.id).set(
+            order
           );
         } else {
           //Just simulating creation here.
-          //The server would generate ids and watchHref's for new courses in a real app.
+          //The server would generate ids and watchHref's for new orders in a real app.
           //Cloning so copy returned is passed by value rather than by reference.
-          // course.id = generateId(course);
-          course.id = Date.now();
-          // course.complete = false;
-          course.watchHref = `http://www.pluralsight.com/courses/${course.id}`;
-          courses.push(course);
-          firebase.database().ref('courses/' + course.id).set(
-            course
+          // order.id = generateId(order);
+          order.id = Date.now();
+          // order.complete = false;
+          order.watchHref = `http://www.pluralsight.com/orders/${order.id}`;
+          orders.push(order);
+          firebase.database().ref('orders/' + order.id).set(
+            order
           );
         }
 
-        resolve(course);
+        resolve(order);
       }, delay);
     });
   }
 
-  static deleteCourse(courseId) {
+  static deleteOrder(orderId) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const indexOfCourseToDelete = courses.findIndex(course => {
-          course.id == courseId;
+        const indexOfOrderToDelete = orders.findIndex(order => {
+          order.id == orderId;
         });
-        courses.splice(indexOfCourseToDelete, 1);
+        orders.splice(indexOfOrderToDelete, 1);
         resolve();
       }, delay);
     });
   }
 }
 
-export default CourseApi;
+export default OrderApi;

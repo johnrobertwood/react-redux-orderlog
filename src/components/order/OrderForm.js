@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import TextInput from '../common/TextInput';
 import SelectInput from '../common/SelectInput';
 
-const CourseForm = ({ course, allAuthors, onSave, onChange, saving, errors }) => {
+const OrderForm = ({ order, allAuthors, onSave, onChange, saving, errors }) => {
   return (
     <form>
       <h1>Manage Order</h1>
@@ -10,14 +10,14 @@ const CourseForm = ({ course, allAuthors, onSave, onChange, saving, errors }) =>
       <TextInput
         name="title"
         label="Work Order"
-        value={course.title}
+        value={order.title}
         onChange={onChange}
         error={errors.title}/>
 
       <SelectInput
         name="authorId"
         label="Inspector"
-        value={course.authorId}
+        value={order.authorId}
         defaultOption="Select Inspector"
         options={allAuthors}
         onChange={onChange}
@@ -26,16 +26,16 @@ const CourseForm = ({ course, allAuthors, onSave, onChange, saving, errors }) =>
       <TextInput
         name="category"
         label="Part Number"
-        value={course.category}
+        value={order.category}
         onChange={onChange}
         error={errors.category}/>
 
       <TextInput
-        name="length"
-        label="Part Name"
-        value={course.length}
+        name="notes"
+        label="Notes"
+        value={order.notes}
         onChange={onChange}
-        error={errors.length}/>
+        error={errors.notes}/>
 
       <input
         type="submit"
@@ -47,8 +47,8 @@ const CourseForm = ({ course, allAuthors, onSave, onChange, saving, errors }) =>
   );
 };
 
-CourseForm.propTypes = {
-  course: React.PropTypes.object.isRequired,
+OrderForm.propTypes = {
+  order: React.PropTypes.object.isRequired,
   allAuthors: React.PropTypes.array,
   onSave: React.PropTypes.func.isRequired,
   onChange: React.PropTypes.func.isRequired,
@@ -56,4 +56,4 @@ CourseForm.propTypes = {
   errors: React.PropTypes.object
 };
 
-export default CourseForm;
+export default OrderForm;
