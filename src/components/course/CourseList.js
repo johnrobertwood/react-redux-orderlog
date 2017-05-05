@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import CourseListRow from './CourseListRow';
-import { toggleCourse } from '../../actions/courseActions';
-import { courseComplete } from '../../actions/courseActions';
+import { toggleCourse, courseComplete } from '../../actions/courseActions';
 
 const CourseList = ({courses, onChange}) => {
  return (

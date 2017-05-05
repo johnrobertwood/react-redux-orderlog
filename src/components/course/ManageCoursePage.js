@@ -49,7 +49,7 @@ class ManageCoursePage extends React.Component {
 
   redirect() {
     this.setState({saving: false});
-    toastr.success('Course saved');
+    toastr.success('Order saved');
     browserHistory.push('/courses'); 
   }
 

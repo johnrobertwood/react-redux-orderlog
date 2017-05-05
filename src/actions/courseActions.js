@@ -44,7 +44,7 @@ export function courseComplete(course) {
     course.complete = !course.complete;
 
     return courseApi.saveCourse(course).then(savedCourse => {
-      dispatch(updateCourseSuccess(savedCourse))
+      dispatch(updateCourseSuccess(savedCourse));
 
       // course.id ? dispatch(updateCourseSuccess(savedCourse)) :
         // dispatch(createCourseSuccess(savedCourse));
@@ -56,7 +56,6 @@ export function courseComplete(course) {
 }
 
 export function saveCourse(course) {
-  console.log(course);
   return function(dispatch, getState) {
     // const auth = pathToJS(getState.firebase, 'auth');
     // course.owner = auth.uid;

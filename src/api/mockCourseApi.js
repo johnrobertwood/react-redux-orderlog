@@ -69,9 +69,9 @@ class CourseApi {
       let courses = firebase.database().ref('/courses').once('value').then(function(snapshot) {
         // var username = snapshot.val().username;
         courses = Object.keys(snapshot.val()).map(function(key) {
-          return snapshot.val()[key]
+          return snapshot.val()[key];
         });
-        resolve(Object.assign([], courses))
+        resolve(Object.assign([], courses));
       });
     });
   }
