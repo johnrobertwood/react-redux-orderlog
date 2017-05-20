@@ -82,7 +82,7 @@ function getOrderById(orders, id) {
 function mapStateToProps(state, ownProps) {
   const orderId = ownProps.params.id; // from the path `/order/:id`
 
-  let order = {id: '', title: '', authorId: '', length: '', category: '', complete: false};
+  let order = {id: '', authorid: '', partnumber: '', notes: '', workorder: '', complete: false};
   
   if (orderId && state.orders.length > 0) {
     order = getOrderById(state.orders, orderId);

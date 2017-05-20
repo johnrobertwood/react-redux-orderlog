@@ -23,7 +23,7 @@ export default function orderReducer(state = initialState.orders, action) {
       return [
         ...state,
         Object.assign({}, action.order)
-      ];
+      ];    
 
     case types.UPDATE_ORDER_SUCCESS:
       return [

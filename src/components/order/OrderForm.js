@@ -8,14 +8,14 @@ const OrderForm = ({ order, allAuthors, onSave, onChange, saving, errors }) => {
       <h1>Manage Order</h1>
 
       <TextInput
-        name="title"
+        name="workorder"
         label="Work Order"
-        value={order.title}
+        value={order.workorder}
         onChange={onChange}
         error={errors.title}/>
 
       <SelectInput
-        name="authorId"
+        name="authorid"
         label="Inspector"
         value={order.authorId}
         defaultOption="Select Inspector"
@@ -24,9 +24,9 @@ const OrderForm = ({ order, allAuthors, onSave, onChange, saving, errors }) => {
         error={errors.authorId}/>
 
       <TextInput
-        name="category"
+        name="partnumber"
         label="Part Number"
-        value={order.category}
+        value={order.partnumber}
         onChange={onChange}
         error={errors.category}/>
 

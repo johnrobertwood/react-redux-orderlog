@@ -34,7 +34,6 @@ const getVisibleCourses = (orders, filter) => {
     case 'SHOW_ACTIVE':
       return orders.filter(t => !t.complete);
     default:
-      // throw new Error('Unknown filter: ' + filter)
       return orders;
   }
 };
