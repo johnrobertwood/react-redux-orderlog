@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import orderApi from '../api/mockOrderApi';
+import orderApi from '../api/orderApi';
 import { beginAjaxCall, ajaxCallError } from './ajaxStatusActions';
 
 export function loadOrdersSuccess(orders) {
@@ -12,6 +12,10 @@ export function createOrderSuccess(order) {
 
 export function updateOrderSuccess(order) {
   return {type: types.UPDATE_ORDER_SUCCESS, order};
+}
+
+export function deleteOrderSuccess(order) {
+  return {type: types.DELETE_ORDER_SUCCESS, order};
 }
 
 export function toggleOrder(id) {
@@ -35,12 +39,10 @@ export function loadOrders() {
   };
 }
 
-export function orderComplete(order) {
+export function saveOrder(order) {
   return function(dispatch, getState) {
-    dispatch(toggleOrder(order.id));
-    order.complete = !order.complete;
+    dispatch(beginAjaxCall());
     return orderApi.saveOrder(order).then(savedOrder => {
-      dispatch(updateOrderSuccess(savedOrder));
       order.id ? dispatch(updateOrderSuccess(savedOrder)) :
         dispatch(createOrderSuccess(savedOrder));
     }).catch(error => {
@@ -50,11 +52,24 @@ export function orderComplete(order) {
   };
 }
 
-export function saveOrder(order) {
+export function updateOrder(order) {
+  return function(dispatch, getState) {
+    dispatch(toggleOrder(order.id));
+    order.complete = !order.complete;
+    return orderApi.saveOrder(order).then(savedOrder => {
+      dispatch(updateOrderSuccess(savedOrder));
+    }).catch(error => {
+      dispatch(ajaxCallError());
+      throw(error);
+    });
+  };
+}
+
+export function deleteOrder(order) {
   return function(dispatch, getState) {
     dispatch(beginAjaxCall());
-    return orderApi.saveOrder(order).then(savedOrder => {
-      dispatch(createOrderSuccess(savedOrder));
+    return orderApi.deleteOrder(order).then(orders => {
+      dispatch(loadOrdersSuccess(orders));
     }).catch(error => {
       dispatch(ajaxCallError());
       throw(error);

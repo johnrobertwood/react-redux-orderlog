@@ -7,7 +7,7 @@ import { browserHistory } from 'react-router';
 import toastr from 'toastr';
 import { pathToJS } from 'react-redux-firebase';
 
-class ManageOrderPage extends React.Component {
+class CreateOrderPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -19,8 +19,6 @@ class ManageOrderPage extends React.Component {
 
     this.updateOrderState = this.updateOrderState.bind(this);
     this.saveOrder = this.saveOrder.bind(this);
-    this.updateOrder = this.updateOrder.bind(this);
-    this.deleteOrder = this.deleteOrder.bind(this);
 }
   
   componentWillReceiveProps(nextProps) {
@@ -49,32 +47,6 @@ class ManageOrderPage extends React.Component {
       }); 
   }
 
-  updateOrder(e) {
-    e.preventDefault();
-    this.setState({saving: true});
-    let order = this.state.order;
-    this.props.actions.updateOrder(order)
-      .then(() => this.redirect())
-      .catch(error => {
-        toastr.error(error);
-        this.setState({saving: false});
-      });
-  }
-
-  deleteOrder(e) {
-    e.preventDefault();
-    this.setState({saving: true});
-    let order = this.state.order;
-    this.props.actions.deleteOrder(order)
-      .then(() => {
-        this.redirect();
-      })
-      .catch(error => {
-        toastr.error(error);
-        this.setState({saving: false});
-      }); 
-  }
-
   redirect() {
     this.setState({saving: false});
     toastr.success('Order saved');
@@ -83,23 +55,19 @@ class ManageOrderPage extends React.Component {
 
   render() {
     return (
-      <div>
-        <OrderForm 
-          allAuthors={this.props.authors}
-          onChange={this.updateOrderState}
-          onSave={this.saveOrder}
-          onDelete={this.deleteOrder}
-          order={this.state.order} 
-          errors={this.state.errors}
-          saving={this.state.saving}
-        />
-
-      </div>
+      <OrderForm 
+        allAuthors={this.props.authors}
+        onChange={this.updateOrderState}
+        onSave={this.saveOrder}
+        order={this.state.order} 
+        errors={this.state.errors}
+        saving={this.state.saving}
+      />
     );
   }
 }
 
-ManageOrderPage.propTypes = {
+CreateOrderPage.propTypes = {
   order: PropTypes.object.isRequired,
   authors: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
@@ -139,5 +107,5 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageOrderPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateOrderPage);
 

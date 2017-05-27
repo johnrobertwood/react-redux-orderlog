@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 const OrderListRow = ({order, onChange}) => {
   return (
     <tr style={{backgroundColor: order.complete ? '#e6e6e6' : '#ffffff'}}>
-      <td></td>
       <td><Link to={'/order/' + order.id}>{order.workorder}</Link></td>
       <td>{order.authorid}</td>
       <td>{order.partnumber}</td>

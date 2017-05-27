@@ -34,11 +34,11 @@ app.post('/orders', function(req, res) {
     pool.query(text, [req.body.authorid, req.body.partnumber, req.body.notes, req.body.workorder, req.body.complete], 
       function(err) {
       if(err) return console.log(err);
+        res.send(result.rows);
 
       pool.query('SELECT * FROM orders', function(err, result) {
         if(err) return console.log(err);
         console.log(result.rows)
-        res.send(result.rows);
       });
     });
 });

@@ -6,12 +6,11 @@ const Link = ({ active, children, onClick }) => {
   }
 
   return (
-    <a href="#"
-       onClick={e => {
+    <a href="#" onClick={function(e) {
          e.preventDefault();
          onClick();
        }}
-    >
+    >    
       {children}
     </a>
   );

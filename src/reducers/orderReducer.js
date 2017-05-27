@@ -31,6 +31,11 @@ export default function orderReducer(state = initialState.orders, action) {
         Object.assign({}, action.order)
       ];
 
+    case types.DELETE_ORDER_SUCCESS:
+      return [
+        ...state.filter(order => order.id !== action.order.id)
+      ];
+
     default:
       return state;
   }

@@ -19,20 +19,38 @@ class OrderApi {
   }
 
   static saveOrder(order) {
-    var order = Object.assign({}, order);
-    var myHeaders = new Headers();
+    const saveOrder = Object.assign({}, order);
+    const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
-    var myInit = { method: 'POST',
+    let methodType = order.id ? 'PUT' : 'POST';
+    const myInit = { method: methodType,
                    headers: myHeaders,
                    mode: 'cors',
                    cache: 'default',
-                   body: JSON.stringify(order) };
+                   body: JSON.stringify(saveOrder) };
 
     return new Promise((resolve, reject) => {
         fetch('/orders', myInit)
         .then(res => res.json())
         .then(json => resolve(json));
     });
+  }
+
+  static deleteOrder(order) {
+    const deleteOrder = Object.assign({}, order);
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    const myInit = { method: 'DELETE',
+                   headers: myHeaders,
+                   mode: 'cors',
+                   cache: 'default',
+                   body: JSON.stringify(deleteOrder) };
+
+    return new Promise((resolve, reject) => {
+        fetch('/orders', myInit)
+        .then(res => res.json())
+        .then(json => resolve(json));
+    }); 
   }
 }
 

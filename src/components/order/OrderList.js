@@ -1,14 +1,13 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import OrderListRow from './OrderListRow';
-import { toggleOrder, orderComplete } from '../../actions/orderActions';
+import { toggleOrder, updateOrder } from '../../actions/orderActions';
 
 const OrderList = ({orders, onChange}) => {
  return (
    <table className="table">
      <thead>
        <tr>
-         <th>&nbsp;</th>
          <th>WO</th>
          <th>Inspector</th>
          <th>Part Number</th>
@@ -18,7 +17,7 @@ const OrderList = ({orders, onChange}) => {
      </thead>
      <tbody>
        {orders.map(order => 
-        <OrderListRow key={order.id} order={order} onChange={() => onChange(order)}/>
+        <OrderListRow key={order.id} order={order} onChange={function(){onChange(order);}}/>
        )}
      </tbody>
    </table>
@@ -48,7 +47,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  onChange: orderComplete
+  onChange: updateOrder 
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderList);

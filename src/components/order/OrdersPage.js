@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as orderActions from '../../actions/orderActions';
 import OrderList from './OrderList';
+import Footer from '../common/Footer';
 import { browserHistory } from 'react-router';
 
 class OrdersPage extends React.Component {
@@ -21,18 +22,21 @@ class OrdersPage extends React.Component {
   }
 
   render() {
-    const {orders} = this.props;
+    const { orders } = this.props;
     
     return (
-      <div>
-        <h1>Orders</h1>
-        <input 
-          type="submit"
-          value="Add Order"
-          className="btn btn-primary"
-          onClick={this.redirectToAddOrderPage} />
-        <OrderList orders={orders} />
-      </div>
+      <div className="list-wrapper">
+        <div className="list-content">
+          <h1>Orders</h1>
+          <input 
+            type="submit"
+            value="Add Order"
+            className="btn btn-primary"
+            onClick={this.redirectToAddOrderPage} />
+          <OrderList orders={orders} />
+        </div>
+        <Footer />
+    </div>
     );
   }
 }
