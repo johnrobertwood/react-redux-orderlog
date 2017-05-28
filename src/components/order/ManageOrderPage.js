@@ -33,7 +33,7 @@ class ManageOrderPage extends React.Component {
   updateOrderState(e) {
     const field = e.target.name;
     let order = this.state.order;
-    order[field] = e.target.value;
+    order[field] = e.target.value === 'true';
     return this.setState({order: order});
   }
 
@@ -93,7 +93,6 @@ class ManageOrderPage extends React.Component {
           errors={this.state.errors}
           saving={this.state.saving}
         />
-
       </div>
     );
   }
@@ -108,7 +107,6 @@ ManageOrderPage.propTypes = {
 function getOrderById(orders, id) {
   const order = orders.filter(order => order.id == id);
   if (order.length) return order[0];
-  return null;
 }
 
 function mapStateToProps(state, ownProps) {

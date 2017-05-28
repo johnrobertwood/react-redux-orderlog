@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import TextInput from '../common/TextInput';
 import TextArea from '../common/TextArea';
-import SelectInput from '../common/SelectInput';
+import SelectAuthor from '../common/SelectAuthor';
+import SelectStatus from '../common/SelectStatus';
 
-const OrderForm = ({ order, allAuthors, onSave, onDelete, onChange, saving, errors }) => {
+const OrderForm = ({ order, allAuthors, onSave, onDelete, onChange, saving }) => {
   return (
     <form>
       <h1>Manage Order</h1>
@@ -12,31 +13,35 @@ const OrderForm = ({ order, allAuthors, onSave, onDelete, onChange, saving, erro
         name="workorder"
         label="Work Order"
         value={order.workorder}
-        onChange={onChange}
-        error={errors.title} />
+        onChange={onChange} />
 
-      <SelectInput
+      <SelectAuthor
         name="authorid"
         label="Inspector"
         value={order.authorid}
         defaultOption="Select Inspector"
         options={allAuthors}
-        onChange={onChange}
-        error={errors.authorId} />
+        onChange={onChange} />
 
       <TextInput
         name="partnumber"
         label="Part Number"
         value={order.partnumber}
-        onChange={onChange}
-        error={errors.category} />
+        onChange={onChange} />
 
       <TextArea
         name="notes"
         label="Notes"
         value={order.notes}
-        onChange={onChange}
-        error={errors.notes} />
+        onChange={onChange} />
+
+      <SelectStatus 
+        name="complete"
+        value={order.complete} 
+        label="Status"
+        defaultOption={false}
+        options={[{value: true, text: 'Complete'}, {value: false, text: 'Incomplete'}]}
+        onChange={onChange} />
 
       <input
         type="submit"
@@ -61,8 +66,7 @@ OrderForm.propTypes = {
   onSave: React.PropTypes.func.isRequired,
   onChange: React.PropTypes.func.isRequired,
   onDelete: React.PropTypes.func,
-  saving: React.PropTypes.bool,
-  errors: React.PropTypes.object
+  saving: React.PropTypes.bool
 };
 
 export default OrderForm;

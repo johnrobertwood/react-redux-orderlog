@@ -54,6 +54,7 @@ export function saveOrder(order) {
 
 export function updateOrder(order) {
   return function(dispatch, getState) {
+    dispatch(beginAjaxCall());
     dispatch(toggleOrder(order.id));
     order.complete = !order.complete;
     return orderApi.saveOrder(order).then(savedOrder => {

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const SelectInput = ({name, label, onChange, defaultOption, value, error, options}) => {
+const SelectStatus = ({name, label, onChange, value, options}) => {
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
@@ -11,26 +11,22 @@ const SelectInput = ({name, label, onChange, defaultOption, value, error, option
           value={value}
           onChange={onChange}
           className="form-contrl">
-          <option value="">{defaultOption}</option>
           {options.map((option) => {
-            return <option key={option.value} value={option.value}>{option.text}</option>;
+            return <option key={Math.random()} value={option.value}>{option.text}</option>;
           })
           }
         </select>
-        {error && <div className="alert alert-danger">{error}</div>}
       </div>
      </div> 
   );
 };
 
-SelectInput.propTypes = {
+SelectStatus.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  value: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
-  defaultOption: PropTypes.string,
-  value: PropTypes.string,
-  error: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.object)
 };
 
-export default SelectInput;
+export default SelectStatus;
