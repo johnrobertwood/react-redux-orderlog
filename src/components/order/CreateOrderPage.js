@@ -5,7 +5,6 @@ import * as orderActions from '../../actions/orderActions';
 import OrderForm from './OrderForm';
 import { browserHistory } from 'react-router';
 import toastr from 'toastr';
-import { pathToJS } from 'react-redux-firebase';
 
 class CreateOrderPage extends React.Component {
   constructor(props, context) {
@@ -13,11 +12,13 @@ class CreateOrderPage extends React.Component {
 
     this.state = {
       order: Object.assign({}, props.order),
-      errors: {},
-      saving: false
+      saving: false,
+      errorMessage: '',
+      orderText: ''
     };
 
     this.updateOrderState = this.updateOrderState.bind(this);
+    this.handleEmptySubmit = this.handleEmptySubmit.bind(this);
     this.saveOrder = this.saveOrder.bind(this);
 }
   
@@ -32,7 +33,20 @@ class CreateOrderPage extends React.Component {
     const field = e.target.name;
     let order = this.state.order;
     order[field] = e.target.value;
-    return this.setState({order: order});
+    this.setState({
+      order: order
+    });
+  }
+
+  checkEmpty(e) {
+    this.setState({
+      orderText: e.target.value
+    });
+  }
+
+  handleEmptySubmit(e) {
+    e.preventDefault();
+    this.setState({errorMessage: 'Please supply an order'});
   }
 
   saveOrder(e) {
@@ -54,10 +68,11 @@ class CreateOrderPage extends React.Component {
   }
 
   render() {
+    // const submitHandler = this.state.orderText ? this.saveOrder : this.handleEmptySubmit;
     return (
       <OrderForm 
         allAuthors={this.props.authors}
-        onChange={this.updateOrderState}
+        onChange={this.updateOrderState}  
         onSave={this.saveOrder}
         order={this.state.order} 
         errors={this.state.errors}

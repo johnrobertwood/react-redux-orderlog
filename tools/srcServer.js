@@ -6,6 +6,7 @@ import open from 'open';
 import pg from 'pg';
 import bodyParser from 'body-parser';
 
+// let port = process.env.PORT || 3000;
 let port = 3000;
 let compiler = webpack(config);
 let pool = new pg.Pool(config);
@@ -67,7 +68,8 @@ app.delete('/orders', function(req, res) {
 });
 
 app.get('*', function(req, res) {
-  res.sendFile(path.join( __dirname, '../src/index.html'));
+  // res.sendFile(path.join( __dirname, '../src/index.html'));
+  res.sendFile(path.join( __dirname, '../public/index.html'));
 });
 
 app.listen(port, function(err) {

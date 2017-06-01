@@ -5,7 +5,6 @@ import * as orderActions from '../../actions/orderActions';
 import OrderForm from './OrderForm';
 import { browserHistory } from 'react-router';
 import toastr from 'toastr';
-import { pathToJS } from 'react-redux-firebase';
 
 class ManageOrderPage extends React.Component {
   constructor(props, context) {
@@ -33,7 +32,12 @@ class ManageOrderPage extends React.Component {
   updateOrderState(e) {
     const field = e.target.name;
     let order = this.state.order;
-    order[field] = e.target.value === 'true';
+    //e.target.value is giving me a string and need to convert to boolean for complete
+    if (field === 'complete') {
+      order[field] = e.target.value === 'true';
+    } else {
+      order[field] = e.target.value;
+    }
     return this.setState({order: order});
   }
 

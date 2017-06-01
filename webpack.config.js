@@ -2,26 +2,37 @@ let webpack = require('webpack');
 let path = require('path');
 
 module.exports = {
-  debug: true,
+  debug: false,
   devtool: 'inline-source-map',
-  noInfo: false,
   entry: [
-    'eventsource-polyfill', // necessary for hot reloading with IE
-    'webpack-hot-middleware/client?reload=true', //note that it reloads the page if hot module reloading fails.
     path.resolve(__dirname, 'src/index')
   ],
   target: 'web',
   output: {
-    path: __dirname + '/dist', // Note: Physical files are only output by the production build task `npm run build`.
+    path: __dirname + '/public', // Note: Physical files are only output by the production build task `npm run build`.
     publicPath: '/',
     filename: 'bundle.js'
   },
-  devServer: {
-    contentBase: path.resolve(__dirname, 'src')
-  },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    // new webpack.LoaderOptionsPlugin({
+    //   minimize: true,
+    //   debug: false
+    // }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   beautify: false,
+    //   mangle: {
+    //     screw_ie8: true,
+    //     keep_fnames: true
+    //   },
+    //   compress: {
+    //     screw_ie8: true
+    //   },
+    //   comments: false
+    // }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      // 'API_HOST': 'https://catbook-api.herokuapp.com'
+    })
   ],
   module: {
     loaders: [

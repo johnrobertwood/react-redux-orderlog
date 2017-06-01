@@ -1,5 +1,3 @@
-import delay from './delay';
-
 function replaceAll(str, find, replace) {
   return str.replace(new RegExp(find, 'g'), replace);
 }
@@ -12,7 +10,7 @@ const generateId = (Order) => {
 class OrderApi {
   static getAllOrders() {
     return new Promise((resolve, reject) => {
-      fetch(`/orders`)
+      fetch('/orders')
       .then(res => res.json())
       .then(json => resolve(json));
     });
